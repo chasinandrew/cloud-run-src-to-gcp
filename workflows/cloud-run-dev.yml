@@ -1,0 +1,23 @@
+name: "Cloud Run - Source code to GCP"
+
+on:
+  push: 
+
+env: 
+  WORKLOAD_IDENTITY_PROVIDER: "projects/cloud-run-demo-379520/locations/global/workloadIdentityPools/cloud-run-oidc/providers/cloud-run-oidc-provider"
+  SERVICE_ACCOUNT: "cloud-run-sa@cloud-run-demo-379520.iam.gserviceaccount.com"
+
+jobs: 
+  auth: 
+    permissions: 
+      contents: 'read'
+      id-token: 'write'
+    steps: 
+      - id: 'auth'
+        name: "Authenticate to Google Cloud"
+        uses: google-github-actions/auth@v1
+        with: 
+          token_format: access_token
+          workload_identity_provider: ${{ env.WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: '${{ env.SERVICE_ACCOUNT }}'
+          access_token_lifetime: 300s
