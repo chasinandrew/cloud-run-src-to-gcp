@@ -1,0 +1,14 @@
+{
+    "runtimeOptions": {
+      "tfm": "netcoreapp7.0",
+      "framework": {
+        "name": "Microsoft.NETCore.App",
+        "version": "7.0.0"
+      },
+      "configProperties": {
+        "System.GC.Server": true,
+        "System.GC.Concurrent": true,
+        "Microsoft.NETCore.DotNetHostPolicy.SetAppPaths": true
+      }
+    }
+  }
