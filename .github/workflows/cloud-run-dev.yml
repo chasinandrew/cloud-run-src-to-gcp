@@ -17,7 +17,7 @@ jobs:
     steps: 
     - uses: actions/checkout@v3
 
-    - id: 'auth'
+    - id: 'authenticate'
       name: "Authenticate to Google Cloud"
       uses: google-github-actions/auth@v1
       with: 
@@ -30,4 +30,4 @@ jobs:
       uses: google-github-actions/deploy-cloudrun@v0
       with: 
         service: "hello-cloud-run"
-        source: ./deployment-pattern
+        source: ./deployment-pattern/src
