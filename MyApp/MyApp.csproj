@@ -2,9 +2,12 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net3.1</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <EnvironmentVariables>
+      <GOOGLE_ASP_NET_CORE_VERSION>netcoreapp3.1</GOOGLE_ASP_NET_CORE_VERSION>
+    </EnvironmentVariables>
   </PropertyGroup>
 
 </Project>
