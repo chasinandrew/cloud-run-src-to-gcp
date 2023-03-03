@@ -5,11 +5,10 @@ on:
 
 env: 
   WORKLOAD_IDENTITY_PROVIDER: "projects/937611148812/locations/global/workloadIdentityPools/cloud-run-oidc/providers/test2"
-  # https://iam.googleapis.com/projects/937611148812/locations/global/workloadIdentityPools/cloud-run-oidc/providers/github
   SERVICE_ACCOUNT: "cloud-run-sa@cloud-run-demo-379520.iam.gserviceaccount.com"
 
 jobs: 
-  auth: 
+  authenticate: 
     runs-on: ubuntu-latest
     permissions: 
       contents: 'read'
@@ -25,6 +24,8 @@ jobs:
         workload_identity_provider: ${{ env.WORKLOAD_IDENTITY_PROVIDER }}
         service_account: '${{ env.SERVICE_ACCOUNT }}'
         access_token_lifetime: 300s
+  deploy: 
+    needs: [authenticate]
     - id: 'deploy'
       name: "Deploy Cloud Run"
       uses: google-github-actions/deploy-cloudrun@v0
