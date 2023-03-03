@@ -1,0 +1,2 @@
+runtime: java17 # or another supported runtime
+entrypoint: java -Xmx64m -jar deployment-pattern.jar
