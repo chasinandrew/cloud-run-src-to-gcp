@@ -8,7 +8,7 @@ env:
   SERVICE_ACCOUNT: "cloud-run-sa@cloud-run-demo-379520.iam.gserviceaccount.com"
 
 jobs: 
-  authenticate:
+  authenticate-and-deploy: 
     runs-on: ubuntu-latest
     permissions: 
       contents: 'read'
@@ -23,11 +23,7 @@ jobs:
         token_format: access_token
         workload_identity_provider: ${{ env.WORKLOAD_IDENTITY_PROVIDER }}
         service_account: '${{ env.SERVICE_ACCOUNT }}'
-        access_token_lifetime: 300
-  deploy:
-    needs: [authenticate]
-    runs-on: ubuntu-latest
-    steps:
+        access_token_lifetime: 300s
     - id: 'deploy'
       name: "Deploy Cloud Run"
       uses: google-github-actions/deploy-cloudrun@v0
