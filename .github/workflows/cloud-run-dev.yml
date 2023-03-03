@@ -27,6 +27,7 @@ jobs:
         access_token_lifetime: 300s
     - id: 'deploy'
       name: "Deploy Cloud Run"
+      uses: google-github-actions/deploy-cloudrun@v0
       with: 
         service: "hello-cloud-run"
         source: ./deployment-pattern
