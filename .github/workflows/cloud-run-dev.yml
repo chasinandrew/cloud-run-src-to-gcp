@@ -32,7 +32,7 @@ jobs:
       with: 
         service: "app"
         source: ./helloworld-csharp
-        env_vars:|
+        env_vars: |
           FOO=bar
           TEST=ing
         secrets: |
