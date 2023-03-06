@@ -1,2 +1,2 @@
 runtime: java17 # or another supported runtime
-entrypoint: java -Xmx64m -jar App-0.0.1.jar
+entrypoint: java -Xmx64m -Dserver.port=8080 -jar App-0.0.1.jar
