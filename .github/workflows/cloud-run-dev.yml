@@ -31,4 +31,4 @@ jobs:
       uses: google-github-actions/deploy-cloudrun@v0
       with: 
         service: "app"
-        source: ./dotNetApp
+        source: ./helloworld-csharp
