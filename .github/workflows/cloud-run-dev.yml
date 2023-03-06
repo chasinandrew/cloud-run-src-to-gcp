@@ -33,7 +33,8 @@ jobs:
         service: "app"
         source: ./helloworld-csharp
         env_vars: |
-          FOO=bar
-          TEST=ing
+          INSTANCE_CONNECTION_NAME=test
         secrets: |
-          KEY1=secret-key-1:latest
+          DB_USER=secret-key-1:latest
+          DB_PASSWORD=secret-key-1:latest
+          DB_NAME=secret-key-1:latest
