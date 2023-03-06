@@ -1,2 +1,0 @@
-runtime: java17 # or another supported runtime
-entrypoint: java -Xmx64m -Dserver.port=$PORT -jar App-0.0.1.jar
