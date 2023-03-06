@@ -2,7 +2,8 @@ name: "Cloud Run - Source code to GCP"
 
 on:
   push:
-    - feature/andrew-testing
+    branches: 
+      - feature/andrew-testing
 
 env: 
   WORKLOAD_IDENTITY_PROVIDER: "projects/937611148812/locations/global/workloadIdentityPools/cloud-run-oidc/providers/test2"
