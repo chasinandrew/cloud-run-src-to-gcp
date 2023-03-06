@@ -36,4 +36,4 @@ jobs:
           FOO=bar
           TEST=ing
         secrets: |
-          KEY1:secret-key-1:latest
+          KEY1=secret-key-1:latest
