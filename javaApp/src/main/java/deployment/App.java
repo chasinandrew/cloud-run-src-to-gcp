@@ -1,9 +1,5 @@
-package deployment;
+package com.cloudrun;
 
-/**
- * Hello world!
- *
- */
 public class App 
 {
     public static void main( String[] args )

@@ -5,11 +5,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.cloudrun</groupId>
-  <artifactId>deployment-pattern</artifactId>
+  <artifactId>App</artifactId>
   <version>0.0.1</version>
   <packaging>jar</packaging>
 
-  <name>deployment-pattern</name>
+  <name>App</name>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
