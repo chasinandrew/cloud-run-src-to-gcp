@@ -1,4 +1,4 @@
-package deployment;
+package com.cloudrun;
 
 import static org.junit.Assert.assertTrue;
 
