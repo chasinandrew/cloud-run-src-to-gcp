@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Created-By: 1.7.0_06 (Oracle Corporation)
-Main-Class: App.MyClass
+Main-Class: deployment.App
 
 Class-Path: target/deployment-pattern.jar
 target/deployment-pattern.jar
