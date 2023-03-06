@@ -32,8 +32,8 @@ jobs:
       with: 
         service: "app"
         source: ./helloworld-csharp
-        env_vars:
-          FOO: 'bar'
-          TEST: 'ing'
+        env_vars:|
+          FOO=bar
+          TEST=ing
         secrets: |
           KEY1:secret-key-1:latest
