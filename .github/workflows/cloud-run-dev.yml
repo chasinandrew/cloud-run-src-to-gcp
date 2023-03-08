@@ -9,6 +9,7 @@ env:
   WORKLOAD_IDENTITY_PROVIDER: "projects/937611148812/locations/global/workloadIdentityPools/cloud-run-oidc/providers/test2"
   SERVICE_ACCOUNT: "cloud-run-sa@cloud-run-demo-379520.iam.gserviceaccount.com"
   SOURCE_CODE_DIRECTORY: helloworld-csharp
+  ARTIFACT_REGISTRY: us-central1-docker.pkg.dev/cloud-run-demo-379520/cloud-run-source-deploy
 
 jobs: 
   authenticate-and-deploy: 
@@ -39,7 +40,19 @@ jobs:
       name: "Test with Buildpack"
       run: |
         pack build --builder=gcr.io/buildpacks/builder ${{ env.SOURCE_CODE_DIRECTORY }}
-        pack build --publish us-central1-docker.pkg.dev/cloud-run-demo-379520/cloud-run-source-deploy/app
+
+    - id: 'docker-auth'
+      uses: 'docker/login-action@v1'
+      with: 
+        registry: '{{ $env.ARTIFACT_REGISTRY }}'
+        username: 'oauth2accesstoken'
+        password: '${{ steps.authenticate.outputs.access_token }}'
+
+
+    - id: 'build-push'
+      name: "Docker push"
+      run: |
+        docker push helloworld-csharp
 
     # - id: 'deploy'
     #   name: "Deploy Cloud Run"
