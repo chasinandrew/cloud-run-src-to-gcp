@@ -27,7 +27,7 @@ jobs:
         workload_identity_provider: ${{ env.WORKLOAD_IDENTITY_PROVIDER }}
         service_account: '${{ env.SERVICE_ACCOUNT }}'
         access_token_lifetime: 300s
-    - id: "download pack"
+    - id: "downloadpack"
       run: |
         (curl -sSL "https://github.com/buildpacks/pack/releases/download/v0.28.0/pack-v0.28.0-macos.tgz" | sudo tar -C /usr/local/bin/ --no-same-owner -xzv pack)
 
