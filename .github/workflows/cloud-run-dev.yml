@@ -27,7 +27,7 @@ jobs:
         workload_identity_provider: ${{ env.WORKLOAD_IDENTITY_PROVIDER }}
         service_account: '${{ env.SERVICE_ACCOUNT }}'
         access_token_lifetime: 300s
-    - id: "downloadpack"
+    - id: "pack-download"
       run: |
         sudo add-apt-repository ppa:cncf-buildpacks/pack-cli
         sudo apt-get update
@@ -35,7 +35,7 @@ jobs:
     - id: 'buildpack'
       name: "Test with Buildpack"
       run: |
-        pack build --builder=gcr.io/buildpacks/builder ./helloworld-csharp
+        pack build --builder=gcr.io/buildpacks/builder helloworld-csharp
 
     - id: 'deploy'
       name: "Deploy Cloud Run"
