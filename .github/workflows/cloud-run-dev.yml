@@ -26,6 +26,11 @@ jobs:
         workload_identity_provider: ${{ env.WORKLOAD_IDENTITY_PROVIDER }}
         service_account: '${{ env.SERVICE_ACCOUNT }}'
         access_token_lifetime: 300s
+    - id: 'buildpack'
+      name: "Test with Buildpack"
+      run: |
+       gcloud builds submit "./helloworld-csharp"
+
     - id: 'deploy'
       name: "Deploy Cloud Run"
       uses: google-github-actions/deploy-cloudrun@v0
@@ -38,3 +43,6 @@ jobs:
           DB_USER=secret-key-1:latest
           DB_PASSWORD=secret-key-1:latest
           DB_NAME=secret-key-1:latest
+    - id: build
+      name: "Build source code"
+
