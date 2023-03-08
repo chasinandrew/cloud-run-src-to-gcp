@@ -38,7 +38,8 @@ jobs:
     - id: 'run-buildpack'
       name: "Test with Buildpack"
       run: |
-        pack build --builder=gcr.io/buildpacks/builder ${{ env.SOURCE_CODE_DIRECTORY }} --publish us-central1-docker.pkg.dev/cloud-run-demo-379520/cloud-run-source-deploy/app
+        pack build --builder=gcr.io/buildpacks/builder ${{ env.SOURCE_CODE_DIRECTORY }}
+        pack build --publish us-central1-docker.pkg.dev/cloud-run-demo-379520/cloud-run-source-deploy/app
 
     # - id: 'deploy'
     #   name: "Deploy Cloud Run"
