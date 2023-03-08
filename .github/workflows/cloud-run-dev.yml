@@ -16,8 +16,9 @@ jobs:
       contents: 'read'
       id-token: 'write'
     steps: 
-    - uses: actions/checkout@v3
-
+    - name: "Checkout"
+      uses: actions/checkout@v3
+      
     - id: 'authenticate'
       name: "Authenticate to Google Cloud"
       uses: google-github-actions/auth@v1
@@ -26,6 +27,7 @@ jobs:
         workload_identity_provider: ${{ env.WORKLOAD_IDENTITY_PROVIDER }}
         service_account: '${{ env.SERVICE_ACCOUNT }}'
         access_token_lifetime: 300s
+
     - id: 'buildpack'
       name: "Test with Buildpack"
       run: |
