@@ -44,7 +44,7 @@ jobs:
     - id: 'docker-auth'
       uses: 'docker/login-action@v1'
       with: 
-        registry: '{{ $env.ARTIFACT_REGISTRY }}'
+        registry: '${{ env.ARTIFACT_REGISTRY }}'
         username: 'oauth2accesstoken'
         password: '${{ steps.authenticate.outputs.access_token }}'
 
