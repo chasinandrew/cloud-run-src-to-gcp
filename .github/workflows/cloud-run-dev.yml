@@ -49,8 +49,7 @@ jobs:
       run: |
         pack build --builder=gcr.io/buildpacks/builder ${{ env.SOURCE_CODE_DIRECTORY }}
         pack set-default-builder gcr.io/buildpacks/builder:v1
-        pack build --publish ${{ env.ARTIFACT_REGISTRY }}
-
+        pack build --publish gcr.io/cloud-run-demo-379520/image-test
     # - id: setup-pack
     #   uses: buildpacks/github-actions/setup-pack@v4.9.0
 
