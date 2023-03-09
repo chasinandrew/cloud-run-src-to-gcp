@@ -50,10 +50,10 @@ jobs:
         password: '${{ steps.authenticate.outputs.access_token }}'
     - id: 'build-and-push'
       name: Build and push
-        uses: docker/build-push-action@v4
-        with:
-          push: true
-          tags: helloworld-csharp:latest
+      uses: docker/build-push-action@v4
+      with:
+        push: true
+        tags: helloworld-csharp:latest
 
     - id: 'push'
       name: "Docker push"
