@@ -41,6 +41,7 @@ jobs:
       name: "Test with Buildpack"
       run: |
         pack build --builder=gcr.io/buildpacks/builder ${{ env.SOURCE_CODE_DIRECTORY }}
+        pack set-default-builder gcr.io/buildpacks/builder:v1
         pack build --publish ${{ env.ARTIFACT_REGISTRY }}
 
     # - id: 'docker-auth'
