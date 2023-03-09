@@ -47,8 +47,8 @@ jobs:
     - id: 'run-buildpack'
       name: "Test with Buildpack"
       run: |
-        pack set-default-builder gcr.io/buildpacks/builder:v1
-        pack build gcr.io/buildpacks/builder ${{ env.SOURCE_CODE_DIRECTORY }} --builder ${{ env.ARTIFACT_REGISTRY }} --publish
+        pack config default-builder gcr.io/buildpacks/builder:v1
+        pack build ${{ env.SOURCE_CODE_DIRECTORY }} --builder --publish
         
 
     # - id: setup-pack
