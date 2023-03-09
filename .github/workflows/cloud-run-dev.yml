@@ -48,12 +48,10 @@ jobs:
       name: "Test with Buildpack"
       run: |
         pack config default-builder gcr.io/buildpacks/builder:v1
-        pack build ${{ env.SOURCE_CODE_DIRECTORY }} --builder --publish
-        
+        pack build ${{ env.SOURCE_CODE_DIRECTORY }}
+        pack build --publish ${{ env.ARTIFACT_REGISTRY }}
 
     # - id: setup-pack
-    #pack build --builder=gcr.io/buildpacks/builder ${{ env.SOURCE_CODE_DIRECTORY }}
-        #pack build --publish ${{ env.ARTIFACT_REGISTRY }}
     #   uses: buildpacks/github-actions/setup-pack@v4.9.0
 
     # - id: package
