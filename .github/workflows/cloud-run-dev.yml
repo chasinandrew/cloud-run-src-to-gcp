@@ -47,10 +47,13 @@ jobs:
     - id: 'run-buildpack'
       name: "Test with Buildpack"
       run: |
-        pack build --builder=gcr.io/buildpacks/builder ${{ env.SOURCE_CODE_DIRECTORY }}
         pack set-default-builder gcr.io/buildpacks/builder:v1
-        pack build --publish gcr.io/cloud-run-demo-379520/image-test
+        pack build gcr.io/buildpacks/builder ${{ env.SOURCE_CODE_DIRECTORY }} --builder ${{ env.ARTIFACT_REGISTRY }} --publish
+        
+
     # - id: setup-pack
+    #pack build --builder=gcr.io/buildpacks/builder ${{ env.SOURCE_CODE_DIRECTORY }}
+        #pack build --publish ${{ env.ARTIFACT_REGISTRY }}
     #   uses: buildpacks/github-actions/setup-pack@v4.9.0
 
     # - id: package
