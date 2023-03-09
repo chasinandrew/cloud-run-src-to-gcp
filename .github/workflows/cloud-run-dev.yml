@@ -9,7 +9,7 @@ env:
   WORKLOAD_IDENTITY_PROVIDER: "projects/937611148812/locations/global/workloadIdentityPools/cloud-run-oidc/providers/test2"
   SERVICE_ACCOUNT: "cloud-run-sa@cloud-run-demo-379520.iam.gserviceaccount.com"
   SOURCE_CODE_DIRECTORY: helloworld-csharp
-  ARTIFACT_REGISTRY: us-central1-docker.pkg.dev/cloud-run-demo-379520/cloud-run-source-deploy
+  ARTIFACT_REGISTRY: us-central1-docker.pkg.dev/cloud-run-demo-379520/cloud-run-source-deploy:latest
 
 jobs: 
   authenticate-and-deploy: 
@@ -44,28 +44,29 @@ jobs:
         sudo apt-get update
         sudo apt-get install pack-cli
 
-    - id: setup-pack
-      uses: buildpacks/github-actions/setup-pack@v4.9.0
-
-    - id: package
-      run: |
-        #!/usr/bin/env bash
-        set -euo pipefail
-        BP_ID="$(cat buildpack.toml | yj -t | jq -r .buildpack.id)"
-        VERSION="$(cat buildpack.toml | yj -t | jq -r .buildpack.version)"
-        PACKAGE="${REPO}/$(echo "$BP_ID" | sed 's/\//_/g')"
-        pack buildpack package --publish ${PACKAGE}:${VERSION}
-        DIGEST="$(crane digest ${PACKAGE}:${VERSION})"
-        echo "::set-output name=bp_id::$BP_ID"
-        echo "::set-output name=version::$VERSION"
-        echo "::set-output name=address::${PACKAGE}@${DIGEST}"        
-        
     - id: 'run-buildpack'
       name: "Test with Buildpack"
       run: |
         pack build --builder=gcr.io/buildpacks/builder ${{ env.SOURCE_CODE_DIRECTORY }}
         pack set-default-builder gcr.io/buildpacks/builder:v1
         pack build --publish ${{ env.ARTIFACT_REGISTRY }}
+
+    # - id: setup-pack
+    #   uses: buildpacks/github-actions/setup-pack@v4.9.0
+
+    # - id: package
+    #   run: |
+    #     #!/usr/bin/env bash
+    #     set -euo pipefail
+    #     BP_ID="$(cat buildpack.toml | yj -t | jq -r .buildpack.id)"
+    #     VERSION="$(cat buildpack.toml | yj -t | jq -r .buildpack.version)"
+    #     PACKAGE="${REPO}/$(echo "$BP_ID" | sed 's/\//_/g')"
+    #     pack buildpack package --publish ${PACKAGE}:${VERSION}
+    #     DIGEST="$(crane digest ${PACKAGE}:${VERSION})"
+    #     echo "::set-output name=bp_id::$BP_ID"
+    #     echo "::set-output name=version::$VERSION"
+    #     echo "::set-output name=address::${PACKAGE}@${DIGEST}"        
+
 
 
     # - id: 'build-and-push'
