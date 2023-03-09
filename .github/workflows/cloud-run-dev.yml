@@ -41,24 +41,26 @@ jobs:
       name: "Test with Buildpack"
       run: |
         pack build --builder=gcr.io/buildpacks/builder ${{ env.SOURCE_CODE_DIRECTORY }}
+        pack build --publish ${{ env.ARTIFACT_REGISTRY }}
 
-    - id: 'docker-auth'
-      uses: 'docker/login-action@v1'
-      with: 
-        registry: '${{ env.ARTIFACT_REGISTRY }}'
-        username: 'oauth2accesstoken'
-        password: '${{ steps.authenticate.outputs.access_token }}'
-    - id: 'build-and-push'
-      name: Build and push
-      uses: docker/build-push-action@v4
-      with:
-        push: true
-        tags: helloworld-csharp:latest
+    # - id: 'docker-auth'
+    #   uses: 'docker/login-action@v1'
+    #   with: 
+    #     registry: '${{ env.ARTIFACT_REGISTRY }}'
+    #     username: 'oauth2accesstoken'
+    #     password: '${{ steps.authenticate.outputs.access_token }}'
+        
+    # - id: 'build-and-push'
+    #   name: Build and push
+    #   uses: docker/build-push-action@v4
+    #   with:
+    #     push: true
+    #     tags: helloworld-csharp:latest
 
-    - id: 'push'
-      name: "Docker push"
-      run: |
-        docker push helloworld-csharp
+    # - id: 'push'
+    #   name: "Docker push"
+    #   run: |
+    #     docker push helloworld-csharp
 
     # - id: 'deploy'
     #   name: "Deploy Cloud Run"
