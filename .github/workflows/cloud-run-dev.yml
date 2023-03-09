@@ -30,20 +30,19 @@ jobs:
         service_account: '${{ env.SERVICE_ACCOUNT }}'
         access_token_lifetime: 300s
 
-    - id: 'docker-auth'
-      uses: 'docker/login-action@v1'
-      with: 
-        registry: '${{ env.ARTIFACT_REGISTRY }}'
-        username: 'oauth2accesstoken'
-        password: '${{ steps.authenticate.outputs.access_token }}'
-
     - id: "pack-download"
       name: "Download Buildpack Package"
       run: |
         sudo add-apt-repository ppa:cncf-buildpacks/pack-cli
         sudo apt-get update
         sudo apt-get install pack-cli
-
+    
+    - id: 'docker-auth'
+      uses: 'docker/login-action@v1'
+      with: 
+        registry: '${{ env.ARTIFACT_REGISTRY }}'
+        username: 'oauth2accesstoken'
+        password: '${{ steps.authenticate.outputs.access_token }}'
     - id: 'run-buildpack'
       name: "Test with Buildpack"
       run: |
