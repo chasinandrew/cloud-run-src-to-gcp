@@ -20,14 +20,7 @@ jobs:
     steps: 
     - name: "Checkout"
       uses: actions/checkout@v3
-
-    - id: "pack-download"
-      name: "Download Buildpack Package"
-      run: |
-        sudo add-apt-repository ppa:cncf-buildpacks/pack-cli
-        sudo apt-get update
-        sudo apt-get install pack-cli
-
+    
     - id: 'authenticate'
       name: "Authenticate to Google Cloud"
       uses: google-github-actions/auth@v1
@@ -37,6 +30,36 @@ jobs:
         service_account: '${{ env.SERVICE_ACCOUNT }}'
         access_token_lifetime: 300s
 
+    - id: 'docker-auth'
+      uses: 'docker/login-action@v1'
+      with: 
+        registry: '${{ env.ARTIFACT_REGISTRY }}'
+        username: 'oauth2accesstoken'
+        password: '${{ steps.authenticate.outputs.access_token }}'
+
+    - id: "pack-download"
+      name: "Download Buildpack Package"
+      run: |
+        sudo add-apt-repository ppa:cncf-buildpacks/pack-cli
+        sudo apt-get update
+        sudo apt-get install pack-cli
+
+    - id: setup-pack
+      uses: buildpacks/github-actions/setup-pack@v4.9.0
+
+    - id: package
+      run: |
+        #!/usr/bin/env bash
+        set -euo pipefail
+        BP_ID="$(cat buildpack.toml | yj -t | jq -r .buildpack.id)"
+        VERSION="$(cat buildpack.toml | yj -t | jq -r .buildpack.version)"
+        PACKAGE="${REPO}/$(echo "$BP_ID" | sed 's/\//_/g')"
+        pack buildpack package --publish ${PACKAGE}:${VERSION}
+        DIGEST="$(crane digest ${PACKAGE}:${VERSION})"
+        echo "::set-output name=bp_id::$BP_ID"
+        echo "::set-output name=version::$VERSION"
+        echo "::set-output name=address::${PACKAGE}@${DIGEST}"        
+        
     - id: 'run-buildpack'
       name: "Test with Buildpack"
       run: |
@@ -44,13 +67,7 @@ jobs:
         pack set-default-builder gcr.io/buildpacks/builder:v1
         pack build --publish ${{ env.ARTIFACT_REGISTRY }}
 
-    # - id: 'docker-auth'
-    #   uses: 'docker/login-action@v1'
-    #   with: 
-    #     registry: '${{ env.ARTIFACT_REGISTRY }}'
-    #     username: 'oauth2accesstoken'
-    #     password: '${{ steps.authenticate.outputs.access_token }}'
-        
+
     # - id: 'build-and-push'
     #   name: Build and push
     #   uses: docker/build-push-action@v4
