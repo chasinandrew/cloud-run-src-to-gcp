@@ -3,7 +3,7 @@ name: "Cloud Run - Source code to GCP"
 on:
   push:
     branches: 
-      - feature/andrew-testing
+      - main
 
 env: 
   WORKLOAD_IDENTITY_PROVIDER: "projects/937611148812/locations/global/workloadIdentityPools/cloud-run-oidc/providers/test2"
@@ -43,11 +43,16 @@ jobs:
         registry: '${{ env.ARTIFACT_REGISTRY }}'
         username: 'oauth2accesstoken'
         password: '${{ steps.authenticate.outputs.access_token }}'
+
     - id: 'run-buildpack'
-      name: "Test with Buildpack"
+      name: "Build with Buildpack"
       run: |
         pack config default-builder gcr.io/buildpacks/builder:v1
         pack build ${{ env.SOURCE_CODE_DIRECTORY }}
+    
+    - id: 'Publish Image'
+      name: "Build with Buildpack"
+      run: |
         pack build --publish ${{ env.ARTIFACT_REGISTRY }}
 
     # - id: setup-pack
