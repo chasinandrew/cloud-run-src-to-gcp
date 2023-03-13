@@ -53,7 +53,7 @@ on:
       - feature/andrew-testing
 
 env:
-  PROJECT_ID: YOUR_PROJECT_ID # TODO: update Google Cloud project id
+  PROJECT_ID: cloud-run-demo-379520 # TODO: update Google Cloud project id
   GAR_LOCATION: us # TODO: update Artifact Registry location
   REPOSITORY: buildpack # TODO: update Artifact Registry repository name
   SERVICE: net-new # TODO: update Cloud Run service name
@@ -94,7 +94,7 @@ jobs:
           sudo add-apt-repository ppa:cncf-buildpacks/pack-cli
           sudo apt-get update
           sudo apt-get install pack-cli
-          
+
       # BEGIN - Docker auth
 
       # Authenticate Docker to Google Cloud Artifact Registry
