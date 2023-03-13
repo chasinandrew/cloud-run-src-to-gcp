@@ -118,7 +118,7 @@ jobs:
         id: "build-and-publish"
         run: |-
           pack build ${{ env.SOURCE_CODE_DIRECTORY }}
-          pack --publish  "${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.SERVICE }}:${{ github.sha }}"
+          pack build --publish  "${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.SERVICE }}:${{ github.sha }}"
 
       # END - Docker auth and build
 
