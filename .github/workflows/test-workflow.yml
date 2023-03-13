@@ -58,7 +58,7 @@ env:
   REPOSITORY: buildpack # TODO: update Artifact Registry repository name
   SERVICE: net-new # TODO: update Cloud Run service name
   REGION: us-central1 # TODO: update Cloud Run service region
-  SOURCE_DIRECTORY: helloworld-csharp #TODO: update source code directory 
+  SOURCE_CODE_DIRECTORY: helloworld-csharp #TODO: update source code directory 
 
 jobs:
   deploy:
